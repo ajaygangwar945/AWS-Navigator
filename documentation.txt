@@ -1,0 +1,74 @@
+========================================================================
+                      AWS NAVIGATOR - PROJECT DOCUMENTATION
+========================================================================
+
+This document describes the steps, features, and configurations implemented
+during the development and automation of the AWS Navigator project.
+
+------------------------------------------------------------------------
+1. BRANDING & TEXT CUSTOMIZATION
+------------------------------------------------------------------------
+* Modified the core index page (index.html) to transition the branding from 
+  "AWS Command Reference" to "AWS Navigator".
+* Updated instances including:
+  - Browser page title (<title> tag)
+  - Navigation header logo (<div class="nav-logo">)
+  - Hero section kicker ("AWS Navigator — Quick Reference")
+  - Hero CTA button text ("Explore Navigator")
+  - Footer copyright and credit text
+
+------------------------------------------------------------------------
+2. RESPONSIVE DESIGN FOR MOBILES & TABLETS
+------------------------------------------------------------------------
+* Navigation Bar:
+  - Replaced the static horizontal link bar with a slide-out hamburger menu 
+    for viewports under 800px.
+  - Implemented custom CSS transitions and a JS helper to toggle the drawer.
+* Hero Section:
+  - Stacked the terminal mock code container below the main title on mobile/tablets 
+    to preserve the design flow instead of hiding it.
+  - Formatted the stats display into a clean 3-column mobile layout.
+* Adaptive Grids:
+  - Reconfigured the Services list to display 2 columns on tablets and 
+    1 column on mobiles.
+  - Reconfigured the Concepts grid to display 3 columns on desktops, 2 columns 
+    on tablets, and 1 column on mobiles.
+* Command Reference list:
+  - Configured command item boxes to display copy buttons permanently on 
+    touchscreen devices (since mouse hover is unavailable).
+  - Stacked descriptions and copy buttons on narrow viewports to avoid overlapping.
+* Cheatsheet Table:
+  - Enabled horizontal scroll on the cheatsheet table using overflow rules 
+    and set a minimum width of 600px. This prevents the text columns from 
+    getting squished or clipped on small displays.
+
+------------------------------------------------------------------------
+3. CONTAINERIZATION & SECURITY (DOCKER)
+------------------------------------------------------------------------
+* Dockerfile Configuration:
+  - Created a Dockerfile based on the lightweight Nginx Alpine image.
+  - Configured the working directory to `/usr/share/nginx/html`.
+  - Restricted the copy command (`COPY index.html .`) to transfer only 
+    necessary assets, preventing configuration or pipeline scripts from leaking.
+* Dockerignore Configuration:
+  - Added a `.dockerignore` file containing `.git`, `.gitignore`, `Jenkinsfile`, 
+    and `.dockerignore` to keep build contexts clean and secure.
+
+------------------------------------------------------------------------
+4. AUTOMATED CI/CD PIPELINE (JENKINS)
+------------------------------------------------------------------------
+* Local Laptop Setup:
+  - Customized the Jenkinsfile to run on a local Windows laptop.
+  - Replaced Linux `sh` execution steps with Windows `bat` syntax.
+* Git Triggering (SCM Polling):
+  - Configured the pipeline to poll GitHub for commits every 2 minutes 
+    (triggers { pollSCM('H/2 * * * *') }) because localhost is not reachable 
+    directly by standard GitHub webhooks.
+* Secret Protection:
+  - Protected Docker Hub login credentials by wrapping authentication inside 
+    `withCredentials` blocks and piping variables securely using `--password-stdin` 
+    to avoid process-level or log-level password exposure.
+* Disk Space Management:
+  - Configured `post { always }` blocks inside Jenkinsfile to clear old 
+    local image tags (`docker rmi`) and log out from registries on completion.
+========================================================================

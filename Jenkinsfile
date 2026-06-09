@@ -2,7 +2,7 @@ pipeline {
 agent any
 
 triggers {
-    pollSCM('* * * * *')
+    pollSCM('H/2 * * * *')
 }
 
 environment {
@@ -39,7 +39,7 @@ stages {
             ]) {
 
                 bat """
-                docker login -u %DOCKER_USER% -p %DOCKER_PASS%
+                echo %DOCKER_PASS%| docker login -u %DOCKER_USER% --password-stdin
                 docker push %DOCKER_HUB_USER%/%IMAGE_NAME%:%BUILD_NUMBER%
                 docker push %DOCKER_HUB_USER%/%IMAGE_NAME%:latest
                 """

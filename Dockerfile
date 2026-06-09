@@ -4,8 +4,8 @@ FROM nginx:alpine
 # Set the working directory to Nginx's public HTML folder
 WORKDIR /usr/share/nginx/html
 
-# Copy the files into the working directory (dot refers to /usr/share/nginx/html)
-COPY . .
+# Copy only index.html into the working directory
+COPY index.html .
 
 # Expose port 80 for web traffic
 EXPOSE 80
