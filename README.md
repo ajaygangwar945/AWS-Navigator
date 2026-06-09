@@ -5,9 +5,7 @@
 <h1 align="center">🧭 AWS Navigator</h1>
 
 <p align="center">
-  <a href="https://ajaygangwar945.github.io/AWS-Navigator/">
-    <img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-007ec6?style=for-the-badge&logo=github&logoColor=white" alt="Live Site">
-  </a>
+  <a href="https://ajaygangwar945.github.io/AWS-Navigator/"><img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-007ec6?style=for-the-badge&logo=github&logoColor=white" alt="Live Site"></a>
   <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="AWS Badge">
   <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" alt="Nginx Badge">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Badge">
